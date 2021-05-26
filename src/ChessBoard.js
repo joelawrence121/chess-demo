@@ -19,10 +19,6 @@ class ChessBoard extends React.Component {
             ],
             whiteToMove: true,
             select: false,
-            selX: null,
-            selY: null,
-            nextX: null,
-            nextY: null
         }
     }
 
@@ -35,22 +31,20 @@ class ChessBoard extends React.Component {
     }
 
     handleClick(x, y) {
-        if (!this.state.select) {
+        if (!this.state.select && !this.isEmpty(x, y)) {
+            // x and y are selected
             this.setState({
-                select: !this.state.select,
-                selX: x,
-                selY: y,
+                select: true,
+                selX: x, selY: y,
             })
         } else {
-            this.setState({
-                select: !this.state.select,
-                nextX: x,
-                nextY: y,
-            })
-
-            if (!this.isSamePosition(x,y) && !this.isEmptySelected()) {
+            // x and y are the next position
+            if (!this.isSamePosition(x, y) && !this.isEmpty(this.state.selX, this.state.selY)) {
                 this.handleMove(x, y);
             }
+            this.setState({
+                select: false
+            })
         }
     }
 
@@ -58,8 +52,11 @@ class ChessBoard extends React.Component {
         const newSquares = this.state.squares;
         newSquares[nextX][nextY] = newSquares[this.state.selX][this.state.selY];
         newSquares[this.state.selX][this.state.selY] = null;
+
         this.setState({
-            squares: newSquares
+            squares: newSquares,
+            nextX: nextX, nextY: nextY,
+            whiteToMove: !this.state.whiteToMove
         })
     }
 
@@ -67,8 +64,8 @@ class ChessBoard extends React.Component {
         return (nextX === this.state.selX && nextY === this.state.selY);
     }
 
-    isEmptySelected() {
-        return !this.state.squares[this.state.selX][this.state.selY];
+    isEmpty(x, y) {
+        return !this.state.squares[x][y];
     }
 
     render() {
