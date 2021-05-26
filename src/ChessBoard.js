@@ -17,7 +17,12 @@ class ChessBoard extends React.Component {
                 ["bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP"],
                 ["bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR"],
             ],
-            whiteToMove: true
+            whiteToMove: true,
+            select: false,
+            selX: null,
+            selY: null,
+            nextX: null,
+            nextY: null
         }
     }
 
@@ -30,7 +35,30 @@ class ChessBoard extends React.Component {
     }
 
     handleClick(x, y) {
+        if (!this.state.select) {
+            this.setState({
+                select: !this.state.select,
+                selX: x,
+                selY: y,
+            })
+        }
+        else {
+            this.setState({
+                select: !this.state.select,
+                nextX: x,
+                nextY: y,
+            })
+            this.handleMove(x, y);
+        }
+    }
 
+    handleMove(nextX, nextY) {
+        const newSquares = this.state.squares;
+        newSquares[nextX][nextY] = newSquares[this.state.selX][this.state.selY];
+        newSquares[this.state.selX][this.state.selY] = null;
+        this.setState({
+            squares: newSquares
+        })
     }
 
     render() {

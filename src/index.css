@@ -61,8 +61,12 @@ ol, ul {
   width: 50px;
 }
 
-.square:focus {
-  outline: none;
+.square_black:focus {
+  border: 2px solid #aaa;
+}
+
+.square_white:focus {
+  border: 2px solid #aaa;
 }
 
 .kbd-navigation .square:focus {
