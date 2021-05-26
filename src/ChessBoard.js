@@ -30,7 +30,7 @@ class ChessBoard extends React.Component {
         return <Square
             value={this.state.squares[x][y]}
             onClick={() => this.handleClick(x, y)}
-            black={ (x + y) % 2 }
+            black={(x + y) % 2}
         />
     }
 
@@ -41,16 +41,14 @@ class ChessBoard extends React.Component {
                 selX: x,
                 selY: y,
             })
-        }
-        else {
+        } else {
             this.setState({
                 select: !this.state.select,
                 nextX: x,
                 nextY: y,
             })
 
-            // don't move if same position
-            if (!(x === this.state.selX && y === this.state.selY)) {
+            if (!this.isSamePosition(x,y) && !this.isEmptySelected()) {
                 this.handleMove(x, y);
             }
         }
@@ -63,6 +61,14 @@ class ChessBoard extends React.Component {
         this.setState({
             squares: newSquares
         })
+    }
+
+    isSamePosition(nextX, nextY) {
+        return (nextX === this.state.selX && nextY === this.state.selY);
+    }
+
+    isEmptySelected() {
+        return !this.state.squares[this.state.selX][this.state.selY];
     }
 
     render() {
