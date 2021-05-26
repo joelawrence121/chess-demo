@@ -1,11 +1,10 @@
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 20px;
+  overflow: hidden;
 }
 
 code {
@@ -34,12 +33,13 @@ ol, ul {
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+
+  height: 50px;
+  width: 50px;
 }
 
 .square:focus {
@@ -56,6 +56,6 @@ ol, ul {
 }
 
 .game-info {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
