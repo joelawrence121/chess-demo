@@ -48,7 +48,11 @@ class ChessBoard extends React.Component {
                 nextX: x,
                 nextY: y,
             })
-            this.handleMove(x, y);
+
+            // don't move if same position
+            if (!(x === this.state.selX && y === this.state.selY)) {
+                this.handleMove(x, y);
+            }
         }
     }
 
