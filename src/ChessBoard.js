@@ -1,22 +1,6 @@
 import './App.css';
 import React from "react";
-
-function Square(props) {
-    if (props.black) {
-        return (
-            <button className="square_black" onClick={() => props.onClick()} >
-                {props.value}
-            </button>
-        )
-    }
-    else {
-        return (
-            <button className="square_white" onClick={() => props.onClick()} >
-                {props.value}
-            </button>
-        )
-    }
-}
+import Square from "./Square";
 
 class ChessBoard extends React.Component {
 
@@ -24,14 +8,14 @@ class ChessBoard extends React.Component {
         super(props);
         this.state = {
             squares: [
-                ["R", "N", "B", "K", "Q", "B", "N", "R"],
-                ["P", "P", "P", "P", "P", "P", "P", "P"],
+                ["wR", "wN", "wB", "wK", "wQ", "wB", "wN", "wR"],
+                ["wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP"],
                 [null, null, null, null, null, null, null, null],
                 [null, null, null, null, null, null, null, null],
                 [null, null, null, null, null, null, null, null],
                 [null, null, null, null, null, null, null, null],
-                ["P", "P", "P", "P", "P", "P", "P", "P"],
-                ["R", "N", "B", "Q", "K", "B", "N", "R"],
+                ["bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP"],
+                ["bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR"],
             ],
             whiteToMove: true
         }
