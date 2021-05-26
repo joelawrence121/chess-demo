@@ -39,8 +39,8 @@ class ChessBoard extends React.Component {
             })
         } else {
             // x and y are the next position
-            if (!this.isSamePosition(x, y) && !this.isEmpty(this.state.selX, this.state.selY)) {
-                this.handleMove(x, y);
+            if (this.isValidMove(x, y)) {
+                this.movePieces(x, y);
             }
             this.setState({
                 select: false
@@ -48,7 +48,7 @@ class ChessBoard extends React.Component {
         }
     }
 
-    handleMove(nextX, nextY) {
+    movePieces(nextX, nextY) {
         const newSquares = this.state.squares;
         newSquares[nextX][nextY] = newSquares[this.state.selX][this.state.selY];
         newSquares[this.state.selX][this.state.selY] = null;
@@ -60,6 +60,12 @@ class ChessBoard extends React.Component {
         })
     }
 
+    isValidMove(x, y) {
+        return !this.isSamePosition(x, y)
+            && !this.isEmpty(this.state.selX, this.state.selY)
+            && !this.isCorrectTurn(this.state.selX, this.state.selY);
+    }
+
     isSamePosition(nextX, nextY) {
         return (nextX === this.state.selX && nextY === this.state.selY);
     }
@@ -68,10 +74,17 @@ class ChessBoard extends React.Component {
         return !this.state.squares[x][y];
     }
 
+    isCorrectTurn(x, y) {
+        if(this.state.whiteToMove) {
+            return this.state.squares[x][y].includes("w");
+        } else {
+            return this.state.squares[x][y].includes("b");
+        }
+    }
+
     render() {
         return (
             <div>
-                <div className="status">{this.state.whiteToMove ? "W" : "B"}</div>
                 {this.state.squares.map((row, x) =>
                     <div className="board-row">
                         {row.map((col, y) =>
@@ -79,6 +92,7 @@ class ChessBoard extends React.Component {
                         )}
                     </div>
                 )}
+                <div className="status">{this.state.whiteToMove ? "Black to move" : "White to move"}</div>
             </div>
         );
     }
